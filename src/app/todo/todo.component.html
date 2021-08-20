@@ -1,1 +1,44 @@
-<p>todo works!</p>
+<div>
+    <h2>Todo List</h2>
+    <form
+        (ngSubmit)="addTodo()"
+        [formGroup]="addTodoForm"
+        novalidate
+    >
+        <input 
+            type="text" 
+            formControlName="label"
+            placeholder="Enter todo item"
+        ><br>
+        <select 
+            type="text" 
+            formControlName="priority"
+            placeholder="Select Priority"
+        >
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select><br>
+        <button type="submit">Add Todo</button>
+    </form>
+    
+    <table>
+        <thead>
+            <th>Label</th>
+            <th>Priority</th>
+            <th>Done</th>
+            <th>Actions</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let todo of todos">
+                <td>{{todo.label}}</td>
+                <td>{{todo.priority}}</td>
+                <td>{{todo.done ?  '&#10003;' :'&#10005;'}}</td>
+                <td>
+                    <button (click)="deleteTodo(todo)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
