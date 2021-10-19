@@ -43,7 +43,11 @@ export class TodoComponent implements OnInit {
   }
 
   completeTodo(todoId: string) {
-    console.log('za todos--', this.todos)
+    this.todos.map(todo => {
+      todo.id == todoId ?
+      todo.done = true :
+      null;
+    })
   }
 
   private createForm() {
