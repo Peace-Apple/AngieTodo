@@ -1,47 +1,66 @@
-<div class="container-fluid">
-    <div>
-        <h2>AngieTodo App</h2>
-        <form
-            (ngSubmit)="addTodo()"
-            [formGroup]="addTodoForm"
-            novalidate
-        >
-            <input 
-                type="text" 
-                formControlName="label"
-                placeholder="Enter todo item"
-            ><br>
-            <select 
-                type="text" 
-                formControlName="priority"
-                placeholder="Select Priority"
+<div class="container-fluid mt-5">
+    <div class="container">
+        <h2 class="text-center text-primary mb-4">AngieTodo App</h2>
+        <div class="mb-4">
+            <form
+                (ngSubmit)="addTodo()"
+                [formGroup]="addTodoForm"
+                novalidate
             >
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-            </select><br>
-            <button type="submit">Add Todo</button>
-        </form>
-    </div>
-    <div>
-        <table>
-            <thead>
-                <th>Label</th>
-                <th>Priority</th>
-                <th>Done</th>
-                <th>Actions</th>
-            </thead>
-            <tbody>
-                <tr *ngFor="let todo of todos">
-                    <td>{{todo.label}}</td>
-                    <td>{{todo.priority}}</td>
-                    <td>{{todo.done ?  '&#10003;' :'&#10005;'}}</td>
-                    <td>
-                        <button (click)="deleteTodo(todo)">Delete</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                <div class="row">
+                    <div class="col-9">
+                        <div class="form-group">
+                            <input 
+                                type="text"
+                                class="form-control"
+                                formControlName="label"
+                                placeholder="Enter new todo item"
+                                required
+                            >
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <select 
+                                type="text"
+                                class="form-control"
+                                formControlName="priority"
+                                required
+                            >
+                                <option value="" selected disabled hidden>Priority</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-primary" type="submit">Add Todo</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div>
+            <h5 class="text-primary mb-2">Todo List</h5>
+            <table class="table table-hover">
+                <thead>
+                    <th>Label</th>
+                    <th>Priority</th>
+                    <th>Done</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let todo of todos">
+                        <td>{{todo.label}}</td>
+                        <td>{{todo.priority}}</td>
+                        <td>{{todo.done ?  '&#10003;' :'&#10005;'}}</td>
+                        <td>
+                            <img src="assets/images/trash.svg" alt="" style="width: 10%" (click)="deleteTodo(todo)"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
