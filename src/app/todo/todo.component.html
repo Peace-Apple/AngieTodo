@@ -56,7 +56,9 @@
                         <td>{{todo.priority}}</td>
                         <td>{{todo.done ?  '&#10003;' :'&#10005;'}}</td>
                         <td>
-                            <img src="assets/images/trash.svg" alt="" style="width: 10%" (click)="deleteTodo(todo)"/>
+                            <img src="assets/images/check.svg" alt="" style="width: 10%" (click)="completeTodo(todo.id)"/>
+                            &nbsp;&nbsp;
+                            <img src="assets/images/trash.svg" alt="" style="width: 10%" (click)="deleteTodo(todo.id)"/>
                         </td>
                     </tr>
                 </tbody>

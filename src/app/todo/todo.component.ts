@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-todo',
@@ -8,8 +9,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class TodoComponent implements OnInit {
   addTodoForm!: FormGroup;
-  todos = [
+  todos: any[] = [
     {
+      id: uuidv4(),
       label: 'Complete skills Assessment',
       done: false,
       priority: 4
@@ -28,6 +30,7 @@ export class TodoComponent implements OnInit {
   addTodo() {
     let form = this.addTodoForm.value;
     let newTodo = {
+      id: uuidv4(),
       label: form.label,
       priority: form.priority,
       done: false
@@ -35,8 +38,12 @@ export class TodoComponent implements OnInit {
     this.todos.push(newTodo);
   }
 
-  deleteTodo(todo: any) {
-    this.todos = this.todos.filter(t => t.label != todo.label);
+  deleteTodo(todoId: string) {
+    this.todos = this.todos.filter(t => t.id != todoId);
+  }
+
+  completeTodo(todoId: string) {
+    console.log('za todos--', this.todos)
   }
 
   private createForm() {
