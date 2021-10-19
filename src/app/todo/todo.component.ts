@@ -36,6 +36,7 @@ export class TodoComponent implements OnInit {
       done: false
     };
     this.todos.push(newTodo);
+    this.addTodoForm.reset();
   }
 
   deleteTodo(todoId: string) {
