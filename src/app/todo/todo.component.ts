@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({
@@ -18,6 +18,12 @@ export class TodoComponent implements OnInit {
     }
   ]
 
+  busy = {
+    isAdding: false
+  };
+
+  todoId!: string;
+
   constructor(
     private fb : FormBuilder
   ) {
@@ -28,6 +34,7 @@ export class TodoComponent implements OnInit {
   }
 
   addTodo() {
+    this.busy.isAdding = true;
     let form = this.addTodoForm.value;
     let newTodo = {
       id: uuidv4(),
@@ -36,6 +43,7 @@ export class TodoComponent implements OnInit {
       done: false
     };
     this.todos.push(newTodo);
+    this.busy.isAdding = false;
     this.addTodoForm.reset();
   }
 
@@ -52,9 +60,10 @@ export class TodoComponent implements OnInit {
   }
 
   private createForm() {
-    this.addTodoForm = this.fb.group({
-      label: '',
-      priority: ''
-    });
+    let form = {
+      label: ['', [Validators.required]],
+      priority: ['', [Validators.required]]
+    };
+    this.addTodoForm = this.fb.group(form);
   }
 }

@@ -15,7 +15,6 @@
                                 class="form-control"
                                 formControlName="label"
                                 placeholder="Enter new todo item"
-                                required
                             >
                         </div>
                     </div>
@@ -25,7 +24,6 @@
                                 type="text"
                                 class="form-control"
                                 formControlName="priority"
-                                required
                             >
                                 <option value="" selected disabled hidden>Priority</option>
                                 <option value="1">1</option>
@@ -40,7 +38,15 @@
                             class="btn btn-primary" 
                             type="submit" 
                             [disabled]="!addTodoForm.valid"
-                        >Add Todo</button>
+                        >
+                        <span
+                            *ngIf="busy.isAdding"
+                            class="spinner-border spinner-border-sm text-white"
+                            role="status"
+                        ></span>
+                        <span *ngIf="busy.isAdding" class="mx-2">Saving...</span>
+                        <span *ngIf="!busy.isAdding"> Add Todo </span>
+                        </button>
                     </div>
                 </div>
             </form>
@@ -57,19 +63,31 @@
                 <table class="table table-hover">
                     <thead>
                         <th>Label</th>
-                        <th>Priority</th>
-                        <th>Done</th>
-                        <th>Actions</th>
+                        <th class="text-center">Priority</th>
+                        <th class="text-center">Done</th>
+                        <th class="text-center">Actions</th>
                     </thead>
                     <tbody>
                         <tr *ngFor="let todo of todos">
                             <td>{{todo.label}}</td>
-                            <td>{{todo.priority}}</td>
-                            <td>{{todo.done ?  '&#10003;' :'&#10005;'}}</td>
-                            <td>
-                                <img src="assets/images/check.svg" alt="" style="width: 10%" (click)="completeTodo(todo.id)"/>
-                                &nbsp;&nbsp;
-                                <img src="assets/images/trash.svg" alt="" style="width: 10%" (click)="deleteTodo(todo.id)"/>
+                            <td class="text-center">{{todo.priority}}</td>
+                            <td class="text-center">{{todo.done ?  '&#10003;' :'&#10005;'}}</td>
+                            <td class="text-center">
+                                <img 
+                                    src="assets/images/check.svg" 
+                                    alt="" 
+                                    style="width: 8%" 
+                                    (click)="completeTodo(todo.id)"
+                                    title="Mark as Complete?"
+                                />
+                                &nbsp;&nbsp;&nbsp;
+                                <img 
+                                    src="assets/images/trash.svg" 
+                                    alt="" 
+                                    style="width: 8%" 
+                                    (click)="deleteTodo(todo.id)"
+                                    title="Delete Todo"
+                                    />
                             </td>
                         </tr>
                     </tbody>
